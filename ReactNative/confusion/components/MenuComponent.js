@@ -14,7 +14,8 @@ class Menu extends Component {
     }
 
     static navigationOptions = {
-        title: 'Menu'
+        title: 'Menu',
+        drawerPosition: 'left'
     };
 
     render() {

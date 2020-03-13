@@ -39,6 +39,7 @@ class Home extends Component {
 
     static navigationOptions = {
         title: 'Home',
+        drawerPosition: 'left'
     };
 
     render() {

@@ -14,7 +14,8 @@ class DishDetail extends Component {
     }
 
     static navigationOptions = {
-        title: 'Dish Details'
+        title: 'Dish Details',
+        drawerPosition: 'left'
     };
 
     render() {
