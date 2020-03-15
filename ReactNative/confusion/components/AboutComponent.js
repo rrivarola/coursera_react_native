@@ -35,7 +35,7 @@ class About extends Component {
                 
                 <View>
                     <Card title='Corporate Leadership'>
-                        <LeadersDetails leaders={this.state.leaders} ></LeadersDetails>
+                        <History leaders={this.state.leaders} ></History>
                     </Card>  
                 </View>
             </ScrollView>
@@ -43,7 +43,7 @@ class About extends Component {
     }
 }
 
-function  LeadersDetails(leaders) {
+function  History(leaders) {
     const renderLeaderItem =({item, index}) => {
         return (
             <ListItem 

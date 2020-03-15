@@ -40,7 +40,7 @@ YellowBox.ignoreWarnings([
   'Remote debugger is in a background tab which may cause apps to perform slowly',
 ])
 
-console.ignoredYellowBox = ['DrawerLayoutAndroid drawerPosition']
+
 
 const HomeNavigator = createStackNavigator({
   Home: { screen: Home }
