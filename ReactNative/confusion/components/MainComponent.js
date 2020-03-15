@@ -12,9 +12,10 @@ import  About  from './AboutComponent'
 
 const MenuNavigator = createStackNavigator({
   Menu: { screen: Menu },
+  About: { screen: About },
   DishDetail: { screen: DishDetail },
   Contact: { screen: Contact },
-  About: { screen: About },
+
 },
   {
     initialRouteName: 'Menu',
@@ -93,6 +94,15 @@ const MainNavigator = createDrawerNavigator({
       drawerPosition: 'left'
     }
   },
+  About:
+  {
+    screen: AboutUsNavigator,
+    navigationOptions: {
+      title: 'About Us',
+      drawerLabel: 'About Us',
+      drawerPosition: 'left'
+    },
+  },
   Menu:
   {
     screen: MenuNavigator,
@@ -111,15 +121,7 @@ const MainNavigator = createDrawerNavigator({
       drawerPosition: 'left'
     },
   },
-  About:
-  {
-    screen: AboutUsNavigator,
-    navigationOptions: {
-      title: 'About Us',
-      drawerLabel: 'About Us',
-      drawerPosition: 'left'
-    },
-  }
+
 },
   {
     drawerBackgroundColor: '#D1C4E9'
