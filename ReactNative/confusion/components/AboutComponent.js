@@ -10,13 +10,13 @@ class About extends Component {
     }
 
     static navigationOptions = {
-        title: 'Contact us',
+        title: 'About us',
         drawerPosition: 'left'
     };
 
     render() {
         return (
-            <Card title="Contact Information" >
+            <Card title="About Information" >
                 <Text style={{ margin: 10 }}>
                     121, Clear Water Bay Road
                 </Text>
