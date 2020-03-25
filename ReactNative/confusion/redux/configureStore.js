@@ -12,7 +12,8 @@ export const ConfigureStore = () => {
             dishes,
             comments,
             promotions,
-            leaders
+            leaders,
+            favorites
         }),
         applyMiddleware(thunk, logger)
     );
