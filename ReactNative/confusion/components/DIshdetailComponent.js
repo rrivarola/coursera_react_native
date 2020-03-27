@@ -16,7 +16,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
     postFavorite: (dishId) => dispatch(postFavorite(dishId)),
-    postComment: (dishId, rating, author, comment,id) => dispatch(postComment(dishId, rating, author, comment,id))
+    postComment: (dishId, rating, author, comment, id) => dispatch(postComment(dishId, rating, author, comment, id))
 })
 
 function RenderComments(props) {
@@ -35,7 +35,7 @@ function RenderComments(props) {
     };
 
     return (
-        
+
         <Card title='Comments' >
             <FlatList
                 data={comments}
@@ -43,7 +43,7 @@ function RenderComments(props) {
                 keyExtractor={item => item.id.toString()}
             />
         </Card>
-        
+
     );
 }
 
@@ -54,9 +54,9 @@ class DishDetail extends Component {
         super(props);
 
         this.state = {
-            author:"",
-            comment:"",
-            rating:3,
+            author: "",
+            comment: "",
+            rating: 3,
             showModal: false
         }
         this.ratingCompleted = this.ratingCompleted.bind(this);
@@ -73,10 +73,10 @@ class DishDetail extends Component {
 
     resetForm() {
         this.setState({
-            author:"",
-            comment:"",
+            author: "",
+            comment: "",
             showModal: false,
-            rating:3,
+            rating: 3,
         });
     }
 
@@ -85,59 +85,64 @@ class DishDetail extends Component {
         this.toggleModal();
     }
 
-    addComment(dishId,rating,author,comment,id){
-        this.props.postComment(dishId,rating, author,comment,id)
+    addComment(dishId, rating, author, comment, id) {
+        this.props.postComment(dishId, rating, author, comment, id)
     }
 
     markFavorite(dishId) {
         this.props.postFavorite(dishId);
     }
 
-    
+
 
     ratingCompleted(rating) {
-        this.setState({rating: rating}) 
+        this.setState({ rating: rating })
         //this.setState({ showModal: !this.state.showModal });
-        
+
     }
 
-    
+
 
     render() {
         const dishId = this.props.navigation.getParam('dishId', '');
         return (
             <ScrollView>
                 <View>
-                <RenderDish dish={this.props.dishes.dishes[+dishId]}
-                    favorite={this.props.favorites.some(el => el === dishId)}
-                    onPress={() => this.markFavorite(dishId)}
-                    onPressAddComent={() => this.handleComment()}
-                />
+                    <RenderDish dish={this.props.dishes.dishes[+dishId]}
+                        favorite={this.props.favorites.some(el => el === dishId)}
+                        onPress={() => this.markFavorite(dishId)}
+                        onPressAddComent={() => this.handleComment()}
+                    />
                 </View>
                 <View>
-                <RenderComments comments={this.props.comments.comments.filter((comment) => comment.dishId === dishId)} />
+                    <RenderComments comments={this.props.comments.comments.filter((comment) => comment.dishId === dishId)} />
                 </View>
                 <Modal animationType={"slide"} transparent={false}
                     visible={this.state.showModal}
                     onDismiss={() => this.toggleModal()}
                     onRequestClose={() => this.toggleModal()}>
                     <View style={styles.modal}>
-                        <Rating showRating fractions="{1}" startingValue="{3}" ratingCount={6}  onFinishRating={ this.ratingCompleted } />
-                        <Input leftIcon={{ type: 'font-awesome', name: 'user-o' }} placeholder='Author' onChangeText={ author => this.setState({ author })}/>
-                        <Input leftIcon={{ type: 'font-awesome', name: 'comment-o' }} placeholder='Comment' onChangeText={ comment => this.setState({ comment })}/>
 
+                        <Rating showRating fractions="{1}" startingValue="{3}" ratingCount={6} onFinishRating={this.ratingCompleted} />
+                        <View style={{ margin: 20, marginTop: 45 }}>
+                            <Input  leftIcon={{ type: 'font-awesome', name: 'user-o' }} placeholder='Author' onChangeText={author => this.setState({ author })} />
+                            <Input leftIcon={{ type: 'font-awesome', name: 'comment-o' }} style={{ marginBottom: 10 }} placeholder='Comment' onChangeText={comment => this.setState({ comment })} />
+                        </View>
                         <View style={styles.formRow}>
                             <Button
-                                onPress={() => { this.addComment(dishId, this.state.rating, this.state.author, this.state.comment,this.props.comments.comments.length);this.toggleModal(); this.resetForm(); }}
+                                onPress={() => { this.addComment(dishId, this.state.rating, this.state.author, this.state.comment, this.props.comments.comments.length); this.toggleModal(); this.resetForm(); }}
                                 color="#512DA8"
                                 title="Submit"
+                                style={{ marginTop: 30 }}
+                                accessibilityLabel="Post your comment"
                             />
                         </View>
                         <View style={styles.formRow}></View>
                         <Button
                             onPress={() => { this.toggleModal(); this.resetForm(); }}
-                            color="#512DA8"
+                            color="#7D7F7D"
                             title="Cancel"
+                            style={{ marginTop: 10 }}
                         />
                     </View>
                 </Modal>
@@ -189,7 +194,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flex: 1,
         flexDirection: 'row',
-        margin: 10
+        margin: 15
     },
     formLabel: {
         fontSize: 18,
