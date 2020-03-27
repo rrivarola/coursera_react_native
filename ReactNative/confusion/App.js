@@ -7,6 +7,7 @@ import { ConfigureStore } from './redux/configureStore';
 const store = ConfigureStore();
 export default class App extends React.Component {
   render() {
+    console.disableYellowBox = true;
     return (
       <Provider store={store}>
         <Main />

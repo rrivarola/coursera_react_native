@@ -3,7 +3,7 @@ import { Card, Icon, Input, Rating, AirbnbRating } from 'react-native-elements';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
-import { postFavorite } from '../redux/ActionCreators';
+import { postFavorite, postComment } from '../redux/ActionCreators';
 
 
 const mapStateToProps = state => {
@@ -15,7 +15,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-    postFavorite: (dishId) => dispatch(postFavorite(dishId))
+    postFavorite: (dishId) => dispatch(postFavorite(dishId)),
+    postComment: (dishId, rating, author, comment,id) => dispatch(postComment(dishId, rating, author, comment,id))
 })
 
 function RenderComments(props) {
@@ -34,6 +35,7 @@ function RenderComments(props) {
     };
 
     return (
+        
         <Card title='Comments' >
             <FlatList
                 data={comments}
@@ -41,6 +43,7 @@ function RenderComments(props) {
                 keyExtractor={item => item.id.toString()}
             />
         </Card>
+        
     );
 }
 
@@ -53,6 +56,7 @@ class DishDetail extends Component {
         this.state = {
             author:"",
             comment:"",
+            rating:3,
             showModal: false
         }
     }
@@ -70,7 +74,8 @@ class DishDetail extends Component {
         this.setState({
             author:"",
             comment:"",
-            showModal: false
+            showModal: false,
+            rating:3,
         });
     }
 
@@ -79,38 +84,44 @@ class DishDetail extends Component {
         this.toggleModal();
     }
 
+    addComment(dishId,rating,author,comment,id){
+        this.props.postComment(dishId,rating, author,comment,id)
+    }
 
     markFavorite(dishId) {
         this.props.postFavorite(dishId);
+    }
+
+    ratingComplete(rating) {
+        this.setState({rating: rating}) 
     }
 
     render() {
         const dishId = this.props.navigation.getParam('dishId', '');
         return (
             <ScrollView>
+                <View>
                 <RenderDish dish={this.props.dishes.dishes[+dishId]}
                     favorite={this.props.favorites.some(el => el === dishId)}
                     onPress={() => this.markFavorite(dishId)}
                     onPressAddComent={() => this.handleComment()}
                 />
+                </View>
+                <View>
                 <RenderComments comments={this.props.comments.comments.filter((comment) => comment.dishId === dishId)} />
+                </View>
                 <Modal animationType={"slide"} transparent={false}
                     visible={this.state.showModal}
                     onDismiss={() => this.toggleModal()}
                     onRequestClose={() => this.toggleModal()}>
                     <View style={styles.modal}>
-
-
-                        <Rating showRating fractions="{1}" startingValue="{3}" ratingCount={6} />
-
-                        <Input leftIcon={{ type: 'font-awesome', name: 'user-o' }} placeholder='Author'></Input>
-                        <Input leftIcon={{ type: 'font-awesome', name: 'comment-o' }} placeholder='Comment'></Input>
-
-                        
+                        <Rating showRating fractions="{1}" startingValue="{3}" ratingCount={6}  onFinishRating={ this.ratingComplete } />
+                        <Input leftIcon={{ type: 'font-awesome', name: 'user-o' }} placeholder='Author' onChangeText={ author => this.setState({ author })}/>
+                        <Input leftIcon={{ type: 'font-awesome', name: 'comment-o' }} placeholder='Comment' onChangeText={ comment => this.setState({ comment })}/>
 
                         <View style={styles.formRow}>
                             <Button
-                                onPress={() => { this.toggleModal(); this.resetForm(); }}
+                                onPress={() => { this.addComment(dishId, this.state.rating, this.state.author, this.state.comment,this.props.comments.comments.length);this.toggleModal(); this.resetForm(); }}
                                 color="#512DA8"
                                 title="Submit"
                             />
