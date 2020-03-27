@@ -27,9 +27,11 @@ function RenderComments(props) {
 
         return (
             <View key={index} style={{ margin: 10 }}>
-                <Rating  imageSize={15} startingValue={item.rating} ratingCount={6}  />
+                
                 <Text style={{ fontSize: 14 }}>{item.comment}</Text>
-                <Text style={{ fontSize: 12 }}>{item.rating} Stars</Text>
+                <View style={styles.stars}>                    
+                <Rating  readonly imageSize={15} startingValue={item.rating} ratingCount={6} />
+                </View>
                 <Text style={{ fontSize: 12 }}>{'-- ' + item.author + ', ' + item.date} </Text>
             </View>
         );
@@ -98,8 +100,6 @@ class DishDetail extends Component {
 
     ratingCompleted(rating) {
         this.setState({ rating: rating })
-        //this.setState({ showModal: !this.state.showModal });
-
     }
 
 
@@ -126,7 +126,7 @@ class DishDetail extends Component {
 
                         <Rating showRating fractions="{1}" startingValue="{3}" ratingCount={6} onFinishRating={this.ratingCompleted} />
                         <View style={{ margin: 20, marginTop: 45 }}>
-                            <Input  leftIcon={{ type: 'font-awesome', name: 'user-o' }} placeholder='Author' onChangeText={author => this.setState({ author })} />
+                            <Input leftIcon={{ type: 'font-awesome', name: 'user-o' }} placeholder='Author' onChangeText={author => this.setState({ author })} />
                             <Input leftIcon={{ type: 'font-awesome', name: 'comment-o' }} style={{ marginBottom: 10 }} placeholder='Comment' onChangeText={comment => this.setState({ comment })} />
                         </View>
                         <View style={styles.formRow}>
@@ -164,22 +164,24 @@ function RenderDish(props) {
                 <Text style={{ margin: 10 }}>
                     {dish.description}
                 </Text>
-                <Icon
-                    raised
-                    reverse
-                    name={props.favorite ? 'heart' : 'heart-o'}
-                    type='font-awesome'
-                    color='#f50'
-                    onPress={() => props.favorite ? console.log('Already favorite') : props.onPress()}
-                />
-                <Icon
-                    raised
-                    reverse
-                    name='pencil'
-                    type='font-awesome'
-                    color='#512DA8'
-                    onPress={() => props.onPressAddComent()}
-                />
+                <View style={styles.formRow}>
+                    <Icon
+                        raised
+                        reverse
+                        name={props.favorite ? 'heart' : 'heart-o'}
+                        type='font-awesome'
+                        color='#f50'
+                        onPress={() => props.favorite ? console.log('Already favorite') : props.onPress()}
+                    />
+                    <Icon
+                        raised
+                        reverse
+                        name='pencil'
+                        type='font-awesome'
+                        color='#512DA8'
+                        onPress={() => props.onPressAddComent()}
+                    />
+                </View>
             </Card>
         );
     }
@@ -219,6 +221,10 @@ const styles = StyleSheet.create({
     modalText: {
         fontSize: 18,
         margin: 10
+    },
+    stars:{
+        flex: 1,
+        textAlign: 'left',
     }
 });
 
