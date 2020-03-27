@@ -59,7 +59,7 @@ class DishDetail extends Component {
         this.state = {
             author: "",
             comment: "",
-            rating: 3,
+            rating: 5,
             showModal: false
         }
         this.ratingCompleted = this.ratingCompleted.bind(this);
@@ -79,7 +79,7 @@ class DishDetail extends Component {
             author: "",
             comment: "",
             showModal: false,
-            rating: 3,
+            rating: 5,
         });
     }
 
@@ -124,7 +124,7 @@ class DishDetail extends Component {
                     onRequestClose={() => this.toggleModal()}>
                     <View style={styles.modal}>
 
-                        <Rating showRating fractions="{1}" startingValue="{3}" ratingCount={6} onFinishRating={this.ratingCompleted} />
+                        <Rating showRating fractions="{1}" startingValue={5} ratingCount={5} onFinishRating={this.ratingCompleted} />
                         <View style={{ margin: 20, marginTop: 45 }}>
                             <Input leftIcon={{ type: 'font-awesome', name: 'user-o' }} placeholder='Author' onChangeText={author => this.setState({ author })} />
                             <Input leftIcon={{ type: 'font-awesome', name: 'comment-o' }} style={{ marginBottom: 10 }} placeholder='Comment' onChangeText={comment => this.setState({ comment })} />
