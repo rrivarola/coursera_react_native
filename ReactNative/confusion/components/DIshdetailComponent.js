@@ -59,6 +59,7 @@ class DishDetail extends Component {
             rating:3,
             showModal: false
         }
+        this.ratingCompleted = this.ratingCompleted.bind(this);
     }
 
     static navigationOptions = {
@@ -92,9 +93,15 @@ class DishDetail extends Component {
         this.props.postFavorite(dishId);
     }
 
-    ratingComplete(rating) {
+    
+
+    ratingCompleted(rating) {
         this.setState({rating: rating}) 
+        //this.setState({ showModal: !this.state.showModal });
+        
     }
+
+    
 
     render() {
         const dishId = this.props.navigation.getParam('dishId', '');
@@ -115,7 +122,7 @@ class DishDetail extends Component {
                     onDismiss={() => this.toggleModal()}
                     onRequestClose={() => this.toggleModal()}>
                     <View style={styles.modal}>
-                        <Rating showRating fractions="{1}" startingValue="{3}" ratingCount={6}  onFinishRating={ this.ratingComplete } />
+                        <Rating showRating fractions="{1}" startingValue="{3}" ratingCount={6}  onFinishRating={ this.ratingCompleted } />
                         <Input leftIcon={{ type: 'font-awesome', name: 'user-o' }} placeholder='Author' onChangeText={ author => this.setState({ author })}/>
                         <Input leftIcon={{ type: 'font-awesome', name: 'comment-o' }} placeholder='Comment' onChangeText={ comment => this.setState({ comment })}/>
 
