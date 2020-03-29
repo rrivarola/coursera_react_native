@@ -174,6 +174,11 @@ export const postComment = (dishId, rating, author, comment,id)  => (dispatch) =
     }, 2000);
 };
 
+export const deleteFavorite = (dishId) => ({
+    type: ActionTypes.DELETE_FAVORITE,
+    payload: dishId
+});  
+
 
 export const addComment = (comment) => ({
     type: ActionTypes.ADD_COMMENT,
