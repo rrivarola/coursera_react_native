@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import { fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../redux/ActionCreators';
 import Reservation from './ReservationComponent';
 import Favorites from './FavoriteComponent';
+import * as Animatable from 'react-native-animatable';
 
 const mapStateToProps = state => {
   return {
