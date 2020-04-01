@@ -69,6 +69,7 @@ class DishDetail extends Component {
             showModal: false
         }
         this.ratingCompleted = this.ratingCompleted.bind(this);
+        
     }
 
     static navigationOptions = {
@@ -121,6 +122,7 @@ class DishDetail extends Component {
                         favorite={this.props.favorites.some(el => el === dishId)}
                         onPress={() => this.markFavorite(dishId)}
                         onPressAddComent={() => this.handleComment()}
+                        openCommentModal={() => this.toggleModal()}
                     />
                 </View>
                 <View>
@@ -171,6 +173,14 @@ function RenderDish(props) {
         else
             return false;
     }
+
+
+    const recognizeComment = ({ moveX, moveY, dx, dy }) => {
+        if ( dx > 200 )
+            return true;
+        else
+            return false;
+    }
     
 
     const panResponder = PanResponder.create({
@@ -193,6 +203,10 @@ function RenderDish(props) {
                     ],
                     { cancelable: false }
                 );
+                else if (recognizeComment(gestureState))
+                {
+                    props.openCommentModal();
+                }
 
             return true;
         }
