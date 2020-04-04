@@ -23,7 +23,7 @@ class Reservation extends Component {
     toggleModal() {
         this.setState({ showModal: !this.state.showModal });
     }
-
+    
 
     resetForm() {
         this.setState({
@@ -57,6 +57,11 @@ class Reservation extends Component {
 
     async presentLocalNotification(date) {
         await this.obtainNotificationPermission();
+        Notifications.createChannelAndroidAsync('Confusion', {
+            name: 'Confusion',
+            sound: true,
+            vibrate: true
+        }),
         Notifications.presentLocalNotificationAsync({
             title: 'Your Reservation',
             body: 'Reservation for '+ date + ' requested',
