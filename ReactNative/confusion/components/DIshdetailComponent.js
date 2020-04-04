@@ -1,4 +1,4 @@
-import { Text, View, ScrollView, FlatList, StyleSheet, Modal, Button, PanResponder, Alert } from 'react-native';
+import { Text, View, ScrollView, FlatList, Modal, StyleSheet, Button, Alert, PanResponder, Share } from 'react-native';
 import { Card, Icon, Input, Rating, AirbnbRating } from 'react-native-elements';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -113,6 +113,7 @@ class DishDetail extends Component {
 
     render() {
         
+       
 
         const dishId = this.props.navigation.getParam('dishId', '');
         return (
@@ -163,6 +164,16 @@ class DishDetail extends Component {
 }
 
 function RenderDish(props) {
+    
+    const shareDish = (title, message, url) => {
+        Share.share({
+            title: title,
+            message: title + ': ' + message + ' ' + url,
+            url: url
+        },{
+            dialogTitle: 'Share ' + title
+        })
+    }
     const dish = props.dish;
     
     handleViewRef = ref => this.view = ref;
@@ -213,7 +224,7 @@ function RenderDish(props) {
     })
 
 
-   
+    
 
     if (dish != null) {
         return (
@@ -243,6 +254,14 @@ function RenderDish(props) {
                             color='#512DA8'
                             onPress={() => props.onPressAddComent()}
                         />
+                         <Icon
+                            raised
+                            reverse
+                            name='share'
+                            type='font-awesome'
+                            color='#51D2A8'
+                            style={styles.cardItem}
+                            onPress={() => shareDish(dish.name, dish.description, baseUrl + dish.image)} />
                     </View>
                 </Card>
             </Animatable.View>
