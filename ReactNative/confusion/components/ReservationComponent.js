@@ -5,7 +5,7 @@ import DatePicker from 'react-native-datepicker'
 import * as Animatable from 'react-native-animatable';
 import {  Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
-
+import * as Calendar from 'expo-calendar';
 
 class Reservation extends Component {
 
@@ -40,8 +40,44 @@ class Reservation extends Component {
 
     handleReservation() {
         console.log(JSON.stringify(this.state));
-        this.presentLocalNotification(this.state.date)
+        this.presentLocalNotification(this.state.date)        
+        this.obtainCalendarPermission();
+        const {id} = this.getDefaultCalendarSource();
+        this.addReservationToCalendar(this.state.date, id)
         this.toggleModal();
+    }
+
+    obtainCalendarPermission = async () => {
+        const { status } = await Calendar.requestCalendarPermissionsAsync();
+      if (status === 'granted') {
+          const calendars = await Calendar.getCalendarsAsync();
+          console.log('Here are all your calendars:');
+          console.log({ calendars });
+        }
+        else 
+        console.log('Here are all your calendars:');
+    }
+
+    
+    async getDefaultCalendarSource() {
+        const { status } = await Calendar.requestCalendarPermissionsAsync();
+        if (status === 'granted') {
+        const calendars = await Calendar.getCalendarsAsync();
+        //I know that this is deprecated but the task say I must use it.
+        const defaultCalendars = calendars.filter(each => each.source.name === 'Default');
+        return defaultCalendars[0].id;
+        }
+      }
+
+    addReservationToCalendar = async (date, defaultCalendar) => {
+        const newCalendarEvent  = await Calendar.createEventAsync(Calendar.DEFAULT, {
+            "endDate": Date(Date.parse(date)),
+            "startDate": Date((2*60*60*1000)  + Date.parse(date)),
+            "title": 'Con Fusion Table Reservation',
+            "timeZone ":'Asia/Hong_Kong',
+            "location":'121, Clear Water Bay Road, Clear Water Bay, Kowloon, Hong Kong'
+          })
+          console.log(`Your new calendar ID is: ${newCalendarEvent}`);
     }
 
     async obtainNotificationPermission() {
