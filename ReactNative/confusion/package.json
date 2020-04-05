@@ -8,7 +8,9 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-navigation/native": "^5.1.4",
     "expo": "~36.0.0",
+    "expo-image-picker": "~8.0.1",
     "expo-mail-composer": "~8.0.0",
     "expo-permissions": "~8.0.0",
     "expo-secure-store": "~8.0.0",
@@ -19,15 +21,20 @@
     "react-native-animatable": "1.2.4",
     "react-native-datepicker": "1.7.2",
     "react-native-elements": "^1.0.0-beta5",
-    "react-native-screens": "2.0.0-alpha.12",
+    "react-native-gesture-handler": "^1.6.1",
+    "react-native-reanimated": "^1.7.1",
+    "react-native-safe-area-context": "0.6.0",
+    "react-native-screens": "^2.0.0-alpha.12",
     "react-native-swipeout": "2.3.3",
     "react-native-web": "~0.11.7",
-    "react-navigation": "2.0.1",
+    "react-navigation": "^2.0.1",
+    "react-navigation-tabs": "^2.8.11",
     "react-redux": "5.0.7",
     "redux": "4.0.0",
     "redux-logger": "3.0.6",
     "redux-persist": "5.9.1",
-    "redux-thunk": "2.2.0"
+    "redux-thunk": "2.2.0",
+    "rimraf": "^3.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",

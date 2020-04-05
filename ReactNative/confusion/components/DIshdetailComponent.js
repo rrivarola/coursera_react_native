@@ -164,7 +164,7 @@ class DishDetail extends Component {
 }
 
 function RenderDish(props) {
-    
+
     const shareDish = (title, message, url) => {
         Share.share({
             title: title,
